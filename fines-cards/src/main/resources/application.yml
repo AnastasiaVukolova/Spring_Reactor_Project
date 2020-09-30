@@ -4,7 +4,7 @@ spring:
 
 fines:
   executeUrl: http://something.org/fines/execute
-  egovURL: http://localhost:9999
+  egovURL: http://localhost:8084
 
 server:
   port: 8082

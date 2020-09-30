@@ -4,3 +4,5 @@ include 'fines-cards'
 include 'advice-cards'
 include 'regular-cards'
 include 'commons'
+include 'remote-faker'
+
