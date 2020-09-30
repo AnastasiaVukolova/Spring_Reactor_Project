@@ -25,7 +25,6 @@ public class EGovClient {
     public List<FineDTO> defineAdvices(String userId) {
         final List<FineDTO> cardStream = IntStream.range(0, 5)
                 .mapToObj(ind -> FineDTO.builder()
-                        .amount(BigDecimal.valueOf(rnd.nextLong()))
                         .fineType(FineType.fromInt(rnd.nextInt(FineType.values().length - 1)))
                         .id(UUID.randomUUID().toString())
                         .amount(new BigDecimal(ind * rnd.nextInt(10)))
