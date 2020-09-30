@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-
+import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class RegularController {
@@ -25,4 +25,14 @@ public class RegularController {
                 .build())
                 .log();
     }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/basic", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RegularCard> loadRegularBasic(@RequestHeader("userId") String userId,
+                                         @RequestParam("currentDate") Long currentDate) {
+        return regularService.loadRegularBasic(UserData.builder()
+                .currentDate(currentDate)
+                .userId(userId)
+                .build());
+    }
+
 }

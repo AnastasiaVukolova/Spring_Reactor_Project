@@ -11,6 +11,7 @@ fines_port=8082
 regular_port=8083
 host=localhost
 hub_url=$host:$hub_port/hub/cards
+hub_url_basic=$host:$hub_port/hub/cards/basic
 
 current_date=1500197400000
 user_id=20
@@ -48,60 +49,38 @@ case "$COMMAND" in
     _yellow hub call
     ./$D/load/loader.sh load $hub_url?currentDate=$current_date $user_id $longitude $latitude ${@:2}
     ;;
+  load_basic)
+    _yellow hub call
+    ./$D/load/loader.sh load $hub_url_basic?currentDate=$current_date $user_id $longitude $latitude ${@:2}
+    ;;
   light_load)
     _yellow hub call
     ./$D/load/loader.sh light_load $hub_url?currentDate=$current_date $user_id $longitude $latitude
+    ;;
+  light_load_basic)
+    _yellow hub call
+    ./$D/load/loader.sh light_load $hub_url_basic?currentDate=$current_date $user_id $longitude $latitude
     ;;
   heavy_load)
     _yellow hub call
     ./$D/load/loader.sh heavy_load $hub_url?currentDate=$current_date $user_id $longitude $latitude
     ;;
-  env)
-    _yellow start docker env
-    docker-compose -f $D/env/docker-compose.yml up -d
-    _infra_status
-    ;;
-  env_start)
-    _yellow start docker env
-    docker-compose -f $D/env/docker-compose.yml start
-    _infra_status
-    ;;
-  mongo_fill)
-    _yellowb 'fill mongo(repeat that a couple ot times)'
-    docker run --rm --net=host --name=mongo_client -it -v  `pwd`/tools/env:/script mongo:latest mongo localhost:27020/cards /script/init.js
-    docker run --rm --net=host --name=mongo_client -it -v  `pwd`/tools/env:/script mongo:latest mongo localhost:27020 --eval "var database='cards', collection='users', rows=2000000" /script/fill.js
-    ;;
-  mongo_kill_op)
-    _yellowb kill all long running operation in mongo
-    mongo_kill
-    ;;
-  env_down)
-    _yellow down docker env
-    docker-compose -f $D/env/docker-compose.yml down
-    docker ps
-    ;;
-  env_stop)
-    _yellow stop docker env
-    docker-compose -f $D/env/docker-compose.yml stop
-    docker ps
-    ;;
-  env_restart)
-    _yellow stop docker env
-    docker-compose -f $D/env/docker-compose.yml restart
-    docker ps
+  heavy_load_basic)
+    _yellow hub call
+    ./$D/load/loader.sh heavy_load $hub_url_basic?currentDate=$current_date $user_id $longitude $latitude
     ;;
   clean_boot)
     _greenb clean and run all projects
-    trap 'mongo_kill' SIGINT
+#    trap 'mongo_kill' SIGINT
     ./gradlew clean :fines-cards:bootRun :advice-cards:bootRun :regular-cards:bootRun :hub:bootRun --parallel --max-workers=4 -x test
     ;;
   boot)
     _greenb run all projects
-    trap 'mongo_kill' SIGINT
+#    trap 'mongo_kill' SIGINT
     ./gradlew :fines-cards:bootRun :advice-cards:bootRun :regular-cards:bootRun :hub:bootRun --parallel --max-workers=4 -x test
     ;;
   *)
-    echo "use command [simple_ind_call|simple_hub_call|load|light_load|heavy_load|env|env_stop|env_restart|env_down|mongo_fill|boot]"
+    echo "use command [simple_ind_call|simple_hub_call|load|load_basic|light_load|light_load_basic|heavy_load|heavy_load_basic|boot|clean_boot]"
     no_status
     _done
   ;;

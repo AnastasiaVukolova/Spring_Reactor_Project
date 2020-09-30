@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
-
+import java.util.List;
 @Service
 public class FinesCardClient implements CardClient<FineCard> {
 
@@ -23,5 +23,13 @@ public class FinesCardClient implements CardClient<FineCard> {
                                    Long currentDate) {
         return cardClient.getCards(userId, longitude, latitude, currentDate, MediaType.APPLICATION_STREAM_JSON)
                 .flatMapMany(res -> res.bodyToFlux(FineCard.class));
+    }
+
+    public List<FineCard> getCardsBasic(String userId,
+                                   BigDecimal longitude,
+                                   BigDecimal latitude,
+                                   Long currentDate) {
+        return cardClient.<FineCard>getCardsBasic(userId, longitude, latitude, currentDate, MediaType.APPLICATION_JSON)
+                .getBody();
     }
 }

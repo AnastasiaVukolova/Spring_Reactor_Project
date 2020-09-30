@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
-
+import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class AdviceController {
@@ -25,6 +25,23 @@ public class AdviceController {
                                         @RequestHeader("latitude") BigDecimal latitude,
                                         @RequestParam("currentDate") Long currentDate) {
         return adviceService.defineAdvices(UserData.builder()
+                .currentDate(currentDate)
+                .userId(userId)
+                .geoPosition(GeoPosition.builder()
+                        .latitude(latitude)
+                        .longitude(longitude)
+                        .build())
+                .build());
+    }
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/basic", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<AdviceCard> loadAdvicesBasic(@RequestHeader("userId") String userId,
+                                        @RequestHeader("longitude") BigDecimal longitude,
+                                        @RequestHeader("latitude") BigDecimal latitude,
+                                        @RequestParam("currentDate") Long currentDate) {
+        return adviceService.defineAdvicesBasic(UserData.builder()
                 .currentDate(currentDate)
                 .userId(userId)
                 .geoPosition(GeoPosition.builder()

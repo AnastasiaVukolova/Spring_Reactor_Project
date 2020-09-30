@@ -1,9 +1,5 @@
 version: '2'
 services:
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27020:27017"
   wiremock:
     image: rodolpheche/wiremock
     ports:

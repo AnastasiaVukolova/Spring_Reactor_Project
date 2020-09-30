@@ -3,6 +3,7 @@ server:
 
 regular:
   executeUrl: http://something.org/regular/execute
+  path: /home/anastasia/Work/projects/reactor-nastia/tool/regulars.txt
 
 
 #spring:

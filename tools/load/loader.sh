@@ -6,7 +6,7 @@ cd `dirname $0`
 threads=8
 light_connections=10
 light_duration=5s
-heavy_connections=1000 #haha heavy, cause of suffering mongo :(
+heavy_connections=100 #haha heavy, cause of suffering mongo :(
 heavy_duration=19s
 
 COMMAND="${1: }"
