@@ -15,7 +15,8 @@ ext {
     springProjects = [project(':hub'),
                       project(':fines-cards'),
                       project(':advice-cards'),
-                      project(':regular-cards')
+                      project(':regular-cards'),
+                      project(':remote-faker')
     ]
 }
 

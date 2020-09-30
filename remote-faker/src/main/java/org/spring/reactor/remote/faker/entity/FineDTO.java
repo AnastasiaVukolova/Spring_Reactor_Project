@@ -15,10 +15,10 @@ public class FineDTO {
     private String id;
     private BigDecimal amount;
     private FineType fineType;
-    private Date dueDate;
+    private String dueDate;
 
     @Builder
-    public FineDTO(String id, BigDecimal amount, FineType fineType, Date dueDate) {
+    public FineDTO(String id, BigDecimal amount, FineType fineType, String dueDate) {
         this.id = id;
         this.amount = amount;
         this.fineType = fineType;

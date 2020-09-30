@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PersistenceRegularService implements RegularService {
-    private static final long DAY = 86_400_000;
     private final RegularProperties properties;
 
     private static Flux<String> fromPath(Path path) {

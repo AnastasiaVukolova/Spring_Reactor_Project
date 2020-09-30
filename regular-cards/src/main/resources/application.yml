@@ -1,12 +1,10 @@
 server:
   port: 8083
 
+spring:
+  application:
+    name: regular-cards
+
 regular:
   executeUrl: http://something.org/regular/execute
   path: /home/anastasia/Work/projects/reactor-nastia/tool/regulars.txt
-
-
-#spring:
-#  data.mongodb:
-#    uri: mongodb://localhost:27020/cards
-#    repositories.enabled: true
