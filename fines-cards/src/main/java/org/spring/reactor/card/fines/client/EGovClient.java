@@ -52,6 +52,12 @@ public class EGovClient {
 
 
     public List<FineDTO> getFinesBasic(String userId) {
-        return restTemplate.getForObject(baseURL + "/fines?userId={userId}", FinesResponse.class, userId);
+        try {
+            Thread.sleep(5000);  // todo add here randome sleep value
+            
+            return restTemplate.getForObject(baseURL + "/fines?userId={userId}", FinesResponse.class, userId);
+        } catch (InterruptedException e) {
+            return new ArrayList();
+        }
     }
 }
