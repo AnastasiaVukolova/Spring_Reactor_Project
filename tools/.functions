@@ -35,18 +35,18 @@ On_Purple='\033[45m'
 On_Cyan='\033[46m'
 On_White='\033[47m'
 
-NC='\033[0m'
+NC='\033'
 
 _done() {
   echo -e "${BGreen}Done$NC"
 }
 
 _success() {
-  echo -e "${BGreen}Success$NC"
+  echo -e "Success"
 }
 
 _fail() {
-  echo -e "${Red}Fail${NC}"
+  echo -e "Fail"
 }
 
 _end_color() { 
