@@ -45,6 +45,10 @@ case "$COMMAND" in
     echo hub call
     remoteCall $hub_url
     ;;
+  simple_hub_call_basic)
+    echo hub call
+    remoteCall $hub_url_basic
+    ;;
   load)
     echo hub call
     ./$D/load/loader.sh load $hub_url?currentDate=$current_date $user_id $longitude $latitude ${@:2}
