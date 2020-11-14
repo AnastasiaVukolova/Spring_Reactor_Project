@@ -7,4 +7,4 @@ spring:
 
 regular:
   executeUrl: http://something.org/regular/execute
-  path: /home/anastasia/Work/projects/reactor-nastia/tools/regulars.txt
+  path: /home/anastasia/master-work/diplom/tools/regulars.txt
