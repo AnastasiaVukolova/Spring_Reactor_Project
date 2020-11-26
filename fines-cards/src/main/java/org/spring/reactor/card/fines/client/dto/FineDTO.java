@@ -1,6 +1,7 @@
 package org.spring.reactor.card.fines.client.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class FineDTO {
     private String id;
     private BigDecimal amount;
     private FineType fineType;
+//    @JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
     private Date dueDate;
 
     @Builder

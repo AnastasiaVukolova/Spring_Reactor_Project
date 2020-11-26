@@ -8,3 +8,4 @@ spring:
 regular:
   executeUrl: http://something.org/regular/execute
   path: /home/anastasia/master-work/diplom/tools/regulars.txt
+#  path: /home/anaxdem/work/projects/Spring_Reactor_Project/tools/regulars.txt

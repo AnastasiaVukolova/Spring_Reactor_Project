@@ -6,6 +6,7 @@ import org.spring.reactor.card.fines.entity.FineType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
@@ -23,28 +24,23 @@ public class EGovClient {
 
     private final RestTemplate restTemplate;
     private final String baseURL;
-
+    private final WebClient client;
     public EGovClient(@Value("${fines.egovURL}") String baseURL) {
         restTemplate = new RestTemplate();
         this.baseURL = baseURL;
+        client = WebClient.create(baseURL);
     }
 
-    public List<FineDTO> defineAdvices(String userId) {
-        final List<FineDTO> cardStream = IntStream.range(0, 5)
-                .mapToObj(ind -> FineDTO.builder()
-                        .fineType(FineType.fromInt(rnd.nextInt(FineType.values().length - 1)))
-                        .id(UUID.randomUUID().toString())
-                        .amount(new BigDecimal(ind * rnd.nextInt(10)))
-                        .build()).collect(Collectors.toList());
-        return cardStream;
-    }
+
 
     public Mono<List<FineDTO>> getFines(String userId) {
-
         try {
-            Thread.sleep(5000);  // todo add here randome sleep value
+            Thread.sleep(3000);  // todo add here randome sleep value
 
-            return Mono.just(defineAdvices(userId));
+        return client.get()
+                .uri(uriBuilder -> uriBuilder.path("/fines").queryParam("userId",userId).build())
+                .exchange()
+                .flatMap(res -> res.bodyToMono(FinesResponse.class));
         } catch (InterruptedException e) {
             return Mono.just(new ArrayList());
         }
@@ -53,8 +49,8 @@ public class EGovClient {
 
     public List<FineDTO> getFinesBasic(String userId) {
         try {
-            Thread.sleep(5000);  // todo add here randome sleep value
-            
+            Thread.sleep(3000);  // todo add here randome sleep value
+
             return restTemplate.getForObject(baseURL + "/fines?userId={userId}", FinesResponse.class, userId);
         } catch (InterruptedException e) {
             return new ArrayList();

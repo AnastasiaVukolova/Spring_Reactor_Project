@@ -83,6 +83,31 @@ case "$COMMAND" in
 #    trap 'mongo_kill' SIGINT
     ./gradlew :remote-faker:bootRun :fines-cards:bootRun :advice-cards:bootRun :regular-cards:bootRun :hub:bootRun --parallel --max-workers=5 -x test
     ;;
+  env)
+    _yellow start docker env
+    docker-compose -f $D/env/docker-compose.yml up -d
+    _infra_status
+    ;;
+  env_start)
+    _yellow start docker env
+    docker-compose -f $D/env/docker-compose.yml start
+    _infra_status
+    ;;
+  env_down)
+    _yellow down docker env
+    docker-compose -f $D/env/docker-compose.yml down
+    docker ps
+    ;;
+  env_stop)
+    _yellow stop docker env
+    docker-compose -f $D/env/docker-compose.yml stop
+    docker ps
+    ;;
+  env_restart)
+    _yellow stop docker env
+    docker-compose -f $D/env/docker-compose.yml restart
+    docker ps
+    ;;
   *)
     echo "use command [simple_ind_call|simple_hub_call|load|load_basic|light_load|light_load_basic|heavy_load|heavy_load_basic|boot|clean_boot]"
     no_status
