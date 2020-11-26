@@ -3,7 +3,7 @@
 cd `dirname $0`
 
 
-threads=8
+threads=4
 light_connections=10
 light_duration=5s
 heavy_connections=100 #haha heavy, cause of suffering mongo :(
